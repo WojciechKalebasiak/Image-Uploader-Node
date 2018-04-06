@@ -8,27 +8,19 @@ function start() {
         switch (request.url) {
             case '/':
             case '/start':
-                {
-                    handlers.welcome(request, response);
-                    break;
-                }
+                handlers.welcome(request, response);
+                break;
             case '/upload':
-                {
-                    handlers.upload(request, response);
-                    break;
-                }
+                handlers.upload(request, response);
+                break;
             case '/show':
-                {
-                    handlers.show(request, response);
-                    break;
-                }
-                case '/csstemplates/start.css': {
-                	handlers.loadcss(request, response);
-                }
-            default:
-                {
-                    handlers.error(request, response);
-                }
+                handlers.show(request, response);
+                break;  
+            case '/csstemplates/start.css': 
+            	handlers.loadcss(request, response);
+                break;
+            default:    
+                handlers.error(request, response);
         }
     }
     http.createServer(requestListner).listen(9000);
