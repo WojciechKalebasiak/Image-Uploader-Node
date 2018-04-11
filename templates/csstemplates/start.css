@@ -1,3 +1,87 @@
-* {
-	color: red;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+.wrapper {
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+body {
+    background-color: #AA8E3B;
+}
+
+label {
+    display: block;
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    color: #2B506D;
+    margin-top: 20px;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 4em;
+    color: #2B506D;
+}
+
+.uploadfile {
+    color: white;
+}
+
+.send {
+    font-size: 2em;
+    padding: 15px 50px;
+    border-radius: 5%;
+    background-color: transparent;
+    border: 5px solid #2B506D;
+    margin: 0 auto;
+    margin-top: 5%;
+    color: #2B506D;
+    transition: transform 0.3s ease-in-out;
+    display: block;
+}
+
+.gallery {
+    background-color: transparent;
+    border: 4px solid #2B506D;
+    font-size: 2.5em;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px 40px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 5%;
+    transition: transform .3s ease-out;
+}
+
+a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #2B506D;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.title {
+    padding: 5px 0;
+    width: 200px;
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+::placeholder {
+    color: #2B506D;
+    font-style: italic;
+}
+
+.label-for-upload {
+    cursor: pointer;
+    display: inline-block;
+    color: #2B506D;
+    margin-left: 2%;
+}
+
+input[type="file"] {
+    display: none;
 }

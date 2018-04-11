@@ -1,33 +1,31 @@
 var fs = require('fs');
 var formidable = require('formidable');
 var colors = require('colors');
+var gallery = require('./gallery')
+var name;
 
 function upload(request, response) {
     console.log('Start uploading'.yellow);
     var form = new formidable.IncomingForm();
     form.parse(request, function(err, fields, files) {
         fs.renameSync(files.upload.path, './uploaded/' + fields.title);
-        response.setHeader('Content-Type', 'text/html; charset=utf-8');
-        response.write('<h1>recieved img</h1>');
-        response.write('<img src="/show"/>');
-        response.end();
-
-    })
+        name = fields.title;
+    });
+    loadhtml(request, response, 'upload');
 }
 
-function welcome(request, response) {
-    console.log('Welcome'.green);
+function loadhtml(request, response, template) {
     response.setHeader('Content-Type', 'text/html; charset=utf-8');
-    fs.readFile('./templates/htmltemplates/start.html', 'utf-8', function(err, htmlData) {
+    fs.readFile('./templates/htmltemplates/' + template + '.html', 'utf-8', function(err, htmlData) {
         if (err) throw err;
         response.write(htmlData);
         response.end();
     });
 }
 
-function loadcss(request, response) {
+function loadcss(request, response, template) {
     response.setHeader('Content-Type', 'text/css; charset=utf-8');
-    fs.readFile('./templates/csstemplates/start.css', 'utf-8', function(err, cssData) {
+    fs.readFile('./templates/csstemplates/' + template + '.css', 'utf-8', function(err, cssData) {
         if (err) throw err;
         response.write(cssData);
         response.end();
@@ -40,18 +38,23 @@ function error(request, response) {
     response.end();
 }
 
-function show(request, response) {
-    fs.readFile('./uploaded/me', 'binary', function(err, file) {
+function show(request, response, fileName = name) {
+    fs.readFile('./uploaded/' + fileName, 'binary', function(err, file) {
+        if (err) throw err;
         response.setHeader('Content-Type', 'image/png');
         response.write(file, 'binary');
         response.end();
     });
 }
+function uploaded() {
+    var files = fs.readdirSync('./uploaded');
+    return files;
+}
 module.exports = {
     upload: upload,
-    welcome: welcome,
+    loadhtml: loadhtml,
     error: error,
     show: show,
+    uploaded: uploaded,
     loadcss: loadcss
-
 }
