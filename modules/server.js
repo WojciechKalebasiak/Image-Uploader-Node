@@ -1,7 +1,7 @@
 var http = require('http');
 var handlers = require('./handlers')
 var gallery = require('./gallery');
-var files = handlers.uploaded();
+var files;
 
 function start() {
     function requestListner(request, response) {
@@ -9,6 +9,7 @@ function start() {
         response.setHeader('Content-Type', 'text/plain; charset=utf-8');
 
         //gallery uploader
+        var files = handlers.uploaded();
         files.forEach(function(element, index) {
             if (request.url == '/gallery/' + element) {
                 handlers.show(request, response, element);

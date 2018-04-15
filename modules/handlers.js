@@ -1,15 +1,18 @@
 var fs = require('fs');
+var path = require('path');
 var formidable = require('formidable');
 var colors = require('colors');
 var gallery = require('./gallery')
+var uuid = require('uuid');
 var name;
 
 function upload(request, response) {
     console.log('Start uploading'.yellow);
     var form = new formidable.IncomingForm();
     form.parse(request, function(err, fields, files) {
-        fs.renameSync(files.upload.path, './uploaded/' + fields.title);
-        name = fields.title;
+        var tmpName = fields.title || uuid.v4();
+        fs.renameSync(files.upload.path, path.resolve(__dirname, '../uploaded/' + tmpName));
+        name = tmpName;
     });
     loadhtml(request, response, 'upload');
 }
@@ -25,7 +28,7 @@ function loadhtml(request, response, template) {
 
 function loadcss(request, response, template) {
     response.setHeader('Content-Type', 'text/css; charset=utf-8');
-    fs.readFile('./templates/csstemplates/' + template + '.css', 'utf-8', function(err, cssData) {
+    fs.readFile(path.resolve(__dirname, '../templates/csstemplates/' + template + '.css'), 'utf-8', function(err, cssData) {
         if (err) throw err;
         response.write(cssData);
         response.end();
@@ -39,7 +42,7 @@ function error(request, response) {
 }
 
 function show(request, response, fileName = name) {
-    fs.readFile('./uploaded/' + fileName, 'binary', function(err, file) {
+    fs.readFile(path.resolve(__dirname, '../uploaded/' + fileName), 'binary', function(err, file) {
         if (err) throw err;
         response.setHeader('Content-Type', 'image/png');
         response.write(file, 'binary');
