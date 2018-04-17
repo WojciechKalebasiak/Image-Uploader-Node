@@ -1,0 +1,16 @@
+- var files = images
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    link(rel='stylesheet', href='css/upload', type='text/css')
+    title Gallery
+  body
+    .wrapper
+      h1 Your Gallery
+      .gallery
+        each val, index in files
+          a(href="/gallery/"+val)
+            img(src="/gallery/"+val)
+      button
+        a(href="/") Go to main page

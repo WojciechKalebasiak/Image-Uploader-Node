@@ -19,11 +19,9 @@ function start() {
             case '/':
             case '/start':
                 handlers.loadhtml(request, response, 'start');
-                gallery.generate();
                 break;
             case '/upload':
                 handlers.upload(request, response);
-                gallery.generate();
                 break;
             case '/show':
                 handlers.show(request, response);
