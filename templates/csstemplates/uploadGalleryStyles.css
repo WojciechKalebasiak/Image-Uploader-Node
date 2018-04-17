@@ -39,6 +39,7 @@ a {	text-transform: uppercase;
 }
 .gallery {
   display: flex;
+  flex-wrap: wrap;
 }
 .gallery img {
     max-width: 300px;

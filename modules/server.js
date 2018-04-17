@@ -1,14 +1,15 @@
 var http = require('http');
 var handlers = require('./handlers')
 var gallery = require('./gallery');
-var files = handlers.uploaded();
+var colors = require('colors');
 
 function start() {
     function requestListner(request, response) {
-        console.log('Request recieved'.blue);
+        console.log(colors.blue(request.url + ' request recieved'));
         response.setHeader('Content-Type', 'text/plain; charset=utf-8');
 
         //gallery uploader
+        var files = handlers.uploaded();
         files.forEach(function(element, index) {
             if (request.url == '/gallery/' + element) {
                 handlers.show(request, response, element);
@@ -35,6 +36,9 @@ function start() {
                 break;
             case '/gallery':
                 gallery.start(request, response);
+                break;
+            case '/favicon.ico':
+                handlers.favicon(request, response);
                 break;
             default:
                 if ((request.url).includes('/gallery/')) {
