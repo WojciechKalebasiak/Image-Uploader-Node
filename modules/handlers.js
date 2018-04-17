@@ -1,3 +1,4 @@
+//Including necessary modules
 var fs = require('fs');
 var formidable = require('formidable');
 var colors = require('colors');
@@ -63,6 +64,7 @@ function uploaded() {
     var files = fs.readdirSync('./uploaded');
     return files;
 }
+//Exporting modules
 module.exports = {
     upload: upload,
     loadhtml: loadhtml,

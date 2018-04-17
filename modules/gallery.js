@@ -1,9 +1,11 @@
+ // Including necessary modules
  var fs = require('fs');
  var path = require('path');
  var color = require('colors');
  var pug = require('pug');
  var files;
 
+ //Generating and rendering gallery html using PUG template engine
  function start(request, response) {
      response.setHeader('Content-Type', 'text/html; charset=utf-8');
      response.setHeader('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -21,6 +23,7 @@
          });
      });
  }
+ //Exporting modules
  module.exports = {
      start: start,
  }
